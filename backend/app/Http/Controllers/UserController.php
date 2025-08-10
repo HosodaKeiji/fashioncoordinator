@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Http\Resources\UserResource;
 use Illuminate\Validation\ValidationException;
 
-class AuthController extends Controller
+class UserController extends Controller
 {
     public function register(Request $request)
     {
@@ -67,6 +67,6 @@ class AuthController extends Controller
 
     public function user(Request $request)
     {
-        return new UserResource($request->user());
+        return response()->json((new UserResource($request->user()))->resolve());
     }
 }
