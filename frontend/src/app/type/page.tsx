@@ -23,8 +23,12 @@ export default function TypeList() {
       if (!res.ok) throw new Error("タイプ一覧の取得に失敗しました");
       const data = await res.json();
       setTypes(data.data || data);
-    } catch (e: any) {
-      setError(e.message);
+    } catch (err: unknown) {
+      if (err instanceof Error){
+        setError(err.message);
+      } else {
+        setError(String(err));
+      }
     } finally {
       setLoading(false);
     }
@@ -54,8 +58,12 @@ export default function TypeList() {
       setNewName("");
       setModalOpen(false);
       await fetchTypes();
-    } catch (e: any) {
-      setError(e.message);
+    } catch (err: unknown) {
+      if (err instanceof Error){
+        setError(err.message);
+      } else {
+        setError(String(err));
+      }
     }
   }
 
