@@ -23,8 +23,12 @@ export default function CategoryList() {
       if (!res.ok) throw new Error("カテゴリ一覧の取得に失敗しました");
       const data = await res.json();
       setCategories(data.data || data);
-    } catch (e: any) {
-      setError(e.message);
+    } catch (err: unknown) {
+      if (err instanceof Error){
+        setError(err.message);
+      } else {
+        setError(String(err));
+      }
     } finally {
       setLoading(false);
     }
@@ -54,8 +58,12 @@ export default function CategoryList() {
       setNewName("");
       setModalOpen(false);
       await fetchCategories();
-    } catch (e: any) {
-      setError(e.message);
+    } catch (err: unknown) {
+      if (err instanceof Error){
+        setError(err.message);
+      } else {
+        setError(String(err));
+      }
     }
   }
 
